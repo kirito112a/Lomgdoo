@@ -1,0 +1,612 @@
+{% extends 'layouts.html' %}
+
+{% block content%}
+
+{% for messager in messages %}
+
+{% if messager.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+<div class="alert alert-danger">
+  <strong>Warning!</strong> {{messager}}
+</div>
+{% else %}
+<div class="alert alert-success">
+  <strong>Success!</strong> {{messager}}
+</div>
+{% endif %}
+
+{% endfor %}
+
+<div class="container" style="margin-top: 20px;margin-bottom: 20px;">
+
+
+
+  <main>
+    <form method="POST" enctype="multipart/form-data" action="/product_register">
+      {% csrf_token %}
+      <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      </script>
+
+      <div class="col-md-7 col-lg-8" style="margin-left: auto;margin-right: auto;">
+        <br><br>
+        <h4 class="mb-3" style="text-align: center;">
+          {% for link_l in link3 %}
+          {% if link_l.language_name == "TH" %}
+          ลงทะเบียนสินค้าและบริการ
+          {% else %}
+          Register for products and services
+          {% endif %}
+          {% endfor %}
+        </h4>
+        <br>
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+
+            <div class="col-12">
+              <label for="product_and_service_name" class="form-label">
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                ชื่อสินค้าและบริการ
+                {% else %}
+                Product and services name
+                {% endif %}
+                {% endfor %}
+                <span class="text-muted"></span></label>
+              <input type="text" class="form-control" id="product_and_service_name" name="product_and_service_name"
+                placeholder="">
+              <div class="invalid-feedback">
+
+              </div>
+              <p></p>
+            </div>
+
+            <div class="col-12">
+              <label for="product_and_service_deail" class="form-label">{% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                รายละเอียดสินค้าและบริการ 
+                {% else %}
+                Product and services details
+                {% endif %}
+                {% endfor %}
+                <span class="text-muted"></span></label>
+              <textarea type="text" class="form-control" id="product_and_service_deail" name="product_and_service_deail"
+                placeholder="" cols="30" rows="3"> </textarea>
+              <div class="invalid-feedback">
+
+              </div>
+              <p></p>
+            </div>
+
+
+
+            <div class="col-12">
+              <label for="product_and_service_amount" class="form-label">
+
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                จำนวนสินค้าและบริการ 
+                {% else %}
+                Number of product and services
+                {% endif %}
+                {% endfor %}
+                
+              <span class="text-muted"></span></label>
+              <input type="number" class="form-control" name="product_and_service_amount"
+                id="product_and_service_amount" placeholder="">
+              <div class="invalid-feedback">
+
+              </div>
+              <p></p>
+            </div>
+
+
+
+
+            <div class="col-12">
+              <label for="product_and_service_image" class="form-label">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                รูปภาพ
+                {% else %}
+                Image
+                {% endif %}
+                {% endfor %}
+                
+              <span class="text-muted"></span></label>
+              <input type="file" Required name="product_and_service_image" id="product_and_service_image" placeholder=""
+                class="form-control" multiple>
+              <div class="invalid-feedback">
+
+              </div>
+              <p></p>
+            </div>
+
+
+            <div class="col-md-4">
+              <label for="cetegory" class="form-label">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                หมวดหมู่
+                {% else %}
+                Category
+                {% endif %}
+                {% endfor %}
+
+              </label>
+              <br>
+              <select class="form-select form-control" id="cetegory" name="cetegory" required>
+                <option>
+                  
+                  {% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  ตัวเลือก
+                  {% else %}
+                  Choice
+                  {% endif %}
+                  {% endfor %}
+
+                </option>
+                {% for category in links%}
+                <option> {{category.cetegory_name}}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback">
+              </div>
+              <p></p>
+            </div>
+
+            <div class="col-md-4">
+              <label for="type_name" class="form-label">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                ประเภท
+                {% else %}
+                Type
+                {% endif %}
+                {% endfor %}
+
+              </label>
+              <br>
+              <select class="form-select form-control" id="type_name" name="type_name" required>
+                <option>
+                  
+                  {% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  ตัวเลือก
+                  {% else %}
+                  Choice
+                  {% endif %}
+                  {% endfor %}
+
+                </option>
+                {% for type in links2%}
+                <option> {{type.type_name}}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback">
+              </div>
+              <p></p>
+            </div>
+
+
+            <div class="col-md-6">
+              <label for="consumer_gender" class="form-label">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                ระบุเพศของผู้บริโภคที่ต้องการให้ทดลอง
+                {% else %}
+                Specify the gender of the consumer you want to experiment with.
+                {% endif %}
+                {% endfor %}
+
+              </label>
+              <select class="form-select form-control" id="product_option_gender" name="product_option_gender" required>
+                <option>
+                  
+                  {% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  เลือกเพศ
+                  {% else %}
+                  Select gender
+                  {% endif %}
+                  {% endfor %}
+
+                </option>
+                <option value="None">
+                  {% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  ทุกเพศ
+                  {% else %}
+                  All gender
+                  {% endif %}
+                  {% endfor %}
+                </option>
+                <option value="Male">{% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  ชาย
+                  {% else %}
+                  Male
+                  {% endif %}
+                  {% endfor %}</option>
+                <option value="Female">{% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  หญิง
+                  {% else %}
+                  Female
+                  {% endif %}
+                  {% endfor %}</option>
+                <option value="Other">{% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  อื่น ๆ 
+                  {% else %}
+                  Other
+                  {% endif %}
+                  {% endfor %}</option>
+
+              </select>
+              </select>
+              <div class="invalid-feedback">
+
+              </div>
+              <p></p>
+            </div>
+
+
+            <div class="col-md-6">
+              <label for="consumer_province" class="form-label">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                ระบุพื้นที่ของผู้บริโภคที่ต้องการให้ทดลอง 
+                {% else %}
+                Specify the consumer area you want to experiment with.
+                {% endif %}
+                {% endfor %}
+
+              </label>
+              <select class="form-select form-control" id="product_option_province" name="product_option_province"
+                required>
+                <option selected>
+                  {% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  เลือกจังหวัด
+                  {% else %}
+                  Select province
+                  {% endif %}
+                  {% endfor %}
+                </option>
+                <option value="None">ทุกจังหวัด</option>
+                <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                <option value="กระบี่">กระบี่</option>
+                <option value="กาญจนบุรี">กาญจนบุรี</option>
+                <option value="กาฬสินธุ์">กาฬสินธุ์</option>
+                <option value="กำแพงเพชร">กำแพงเพชร</option>
+                <option value="ขอนแก่น">ขอนแก่น</option>
+                <option value="จันทบุรี">จันทบุรี</option>
+                <option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+                <option value="ชลบุรี">ชลบุรี</option>
+                <option value="ชัยนาท">ชัยนาท</option>
+                <option value="ชัยภูมิ">ชัยภูมิ</option>
+                <option value="ชุมพร">ชุมพร</option>
+                <option value="เชียงราย">เชียงราย</option>
+                <option value="เชียงใหม่">เชียงใหม่</option>
+                <option value="ตรัง">ตรัง</option>
+                <option value="ตราด">ตราด</option>
+                <option value="ตาก">ตาก</option>
+                <option value="นครนายก">นครนายก</option>
+                <option value="นครปฐม">นครปฐม</option>
+                <option value="นครพนม">นครพนม</option>
+                <option value="นครราชสีมา">นครราชสีมา</option>
+                <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+                <option value="นครสวรรค์">นครสวรรค์</option>
+                <option value="นนทบุรี">นนทบุรี</option>
+                <option value="นราธิวาส">นราธิวาส</option>
+                <option value="น่าน">น่าน</option>
+                <option value="บึงกาฬ">บึงกาฬ</option>
+                <option value="บุรีรัมย์">บุรีรัมย์</option>
+                <option value="ปทุมธานี">ปทุมธานี</option>
+                <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+                <option value="ปราจีนบุรี">ปราจีนบุรี</option>
+                <option value="ปัตตานี">ปัตตานี</option>
+                <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+                <option value="พังงา">พังงา</option>
+                <option value="พัทลุง">พัทลุง</option>
+                <option value="พิจิตร">พิจิตร</option>
+                <option value="พิษณุโลก">พิษณุโลก</option>
+                <option value="เพชรบุรี">เพชรบุรี</option>
+                <option value="เพชรบูรณ์">เพชรบูรณ์</option>
+                <option value="แพร่">แพร่</option>
+                <option value="พะเยา">พะเยา</option>
+                <option value="ภูเก็ต">ภูเก็ต</option>
+                <option value="มหาสารคาม">มหาสารคาม</option>
+                <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+                <option value="มุกดาหาร">มุกดาหาร</option>
+                <option value="ยะลา">ยะลา</option>
+                <option value="ยโสธร">ยโสธร</option>
+                <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+                <option value="ระนอง">ระนอง</option>
+                <option value="ระยอง">ระยอง</option>
+                <option value="ราชบุรี">ราชบุรี</option>
+                <option value="ลพบุรี">ลพบุรี</option>
+                <option value="ลำปาง">ลำปาง</option>
+                <option value="ลำพูน">ลำพูน</option>
+                <option value="เลย">เลย</option>
+                <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+                <option value="สกลนคร">สกลนคร</option>
+                <option value="สงขลา">สงขลา</option>
+                <option value="สตูล">สตูล</option>
+                <option value="สมุทรปราการ">สมุทรปราการ</option>
+                <option value="สมุทรสงคราม">สมุทรสงคราม</option>
+                <option value="สมุทรสาคร">สมุทรสาคร</option>
+                <option value="สระแก้ว">สระแก้ว</option>
+                <option value="สระบุรี">สระบุรี</option>
+                <option value="สิงห์บุรี">สิงห์บุรี</option>
+                <option value="สุโขทัย">สุโขทัย</option>
+                <option value="สุพรรณบุรี">สุพรรณบุรี</option>
+                <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+                <option value="สุรินทร์">สุรินทร์</option>
+                <option value="หนองคาย">หนองคาย</option>
+                <option value="หนองบัวลำภู">หนองบัวลำภู</option>
+                <option value="อ่างทอง">อ่างทอง</option>
+                <option value="อุดรธานี">อุดรธานี</option>
+                <option value="อุทัยธานี">อุทัยธานี</option>
+                <option value="อุตรดิตถ์">อุตรดิตถ์</option>
+                <option value="อุบลราชธานี">อุบลราชธานี</option>
+                <option value="อำนาจเจริญ">อำนาจเจริญ</option>
+              </select>
+              <div class="invalid-feedback">
+              </div>
+              <p></p>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-12">
+              <label for="question1">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                คำถามที่ ใช่ หรือ ไม่ 
+                {% else %}
+                Question yes or no
+                {% endif %}
+                {% endfor %}
+              
+              </label>
+              <br>
+              <select class="form-select form-control" id="question_tf" name="question_tf" required>
+                <option>เลือกคำถาม</option>
+                <option value="คุณรู้จักหรือเคยได้ยินเกี่ยวกับสินค้าหรือบริการนี้หรือไม่">
+                  คุณรู้จักหรือเคยได้ยินเกี่ยวกับสินค้าหรือบริการนี้หรือไม่</option>
+                <option value="คุณเคยใช้สินค้าหรือบริการนี้หรือไม่">คุณเคยใช้สินค้าหรือบริการนี้หรือไม่</option>
+                <option value="ท่านสนใจที่จะจ่ายเงินเพื่อซื้อสินค้าหรือบริการนี้หรือไม่">
+                  ท่านสนใจที่จะจ่ายเงินเพื่อซื้อสินค้าหรือบริการนี้หรือไม่</option>
+              </select>
+              <p></p>
+            </div>
+            <div class="col-12">
+              <label for="question1">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                คำถาม 1 ตัวเลือก
+                {% else %}
+                Question 1 option 
+                {% endif %}
+                {% endfor %}
+
+              </label>
+              <br>
+              <select class="form-select form-control" id="question_single" name="question_single" required>
+                <option>เลือกคำถาม</option>
+                <option value="ระดับความน่าสนใจของสินค้าหรือบริการชุดนี้">ระดับความน่าสนใจของสินค้าหรือบริการชุดนี้
+                </option>
+                <option value="ระดับความพึงพอใจในตัวของสินค้า">ระดับความพึงพอใจในตัวของสินค้า</option>
+                <option value="ระดับความพึงพอใจเกี่ยวกับบรรจุภัณฑ์">ระดับความพึงพอใจเกี่ยวกับบรรจุภัณฑ์</option>
+              </select>
+              <p></p>
+            </div>
+
+
+
+            <div class="col-12">
+              <label for="question1">
+                
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                คำถามหลายคำตอบ
+                {% else %}
+                Multiple questions
+                {% endif %}
+                {% endfor %}
+
+              </label>
+              <br>
+              <select class="form-select form-control" id="question_multiple" name="question_multiple" required>
+                <option>เลือกคำถาม</option>
+                <option value="ส่วนใหญ่คุณซื้อสินค้าหรือบริการต่าง ๆ ผ่านช่องทางใดบ้าง">
+                  ส่วนใหญ่คุณซื้อสินค้าหรือบริการต่าง ๆ ผ่านช่องทางใดบ้าง</option>
+                <option value="สินค้าที่ใช้อยู่ตอบสนองความต้องการด้านไหนบ้าง">
+                  สินค้าที่ใช้อยู่ตอบสนองความต้องการด้านไหนบ้าง</option>
+                <option value="คุณคิดว่าสินค้าของเราเหมาะกับพรีเซ็นเตอร์ลักษณะไหน">
+                  คุณคิดว่าสินค้าของเราเหมาะกับพรีเซ็นเตอร์ลักษณะไหน</option>
+              </select>
+              <p></p>
+              <div class="row">
+                <div class="col-sm-2">
+                  <label for="question_multi_1">
+                    
+                    {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    ตัวเลือกที่ 1
+                    {% else %}
+                    Answer option 1
+                    {% endif %}
+                    {% endfor %}
+                  
+                  </label>
+                  <p></p>
+                </div>
+                <div class="col-sm-10">
+                  <input type="text" name="question_multi_1" id="question_multi_1" class="form-control">
+                  <p></p>
+                </div>
+                <div class="col-sm-2"><label for="question_multi_2">
+                  
+                  {% for link_l in link3 %}
+                  {% if link_l.language_name == "TH" %}
+                  ตัวเลือกที่ 2
+                  {% else %}
+                  Answer option 2
+                  {% endif %}
+                  {% endfor %}
+                
+                </label>
+                  <p></p>
+                </div>
+                <div class="col-sm-10"><input type="text" name="question_multi_2" id="question_multi_2"
+                    class="form-control">
+                  <p></p>
+                </div>
+                <div class="col-sm-2"><label for="question_multi_3">
+                  
+                  {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    ตัวเลือกที่ 3
+                    {% else %}
+                    Answer option 3
+                    {% endif %}
+                    {% endfor %}
+
+                </label>
+                  <p></p>
+                </div>
+                <div class="col-sm-10"><input type="text =" name="question_multi_3" id="question_multi_3"
+                    class="form-control">
+                  <p></p>
+                </div>
+                <div class="col-sm-2"> <label for="question_multi_4">
+                  
+                  {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    ตัวเลือกที่ 4
+                    {% else %}
+                    Answer option 4
+                    {% endif %}
+                    {% endfor %}
+
+                </label>
+                  <p></p>
+                </div>
+                <div class="col-sm-10"><input type="text" name="question_multi_4" id="question_multi_4"
+                    class="form-control">
+                  <p></p>
+                </div>
+              </div>
+              <p></p>
+            </div>
+
+            <div class="col-12">
+              <label for="question1">
+                
+                {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    คำถามปลายเปิด
+                    {% else %}
+                    Open-ended questions
+                    {% endif %}
+                    {% endfor %}
+
+              </label>
+              <br>
+              <select class="form-select form-control" id="question_text" name="question_text" required>
+                <option>เลือกคำถาม</option>
+                <option value="คุณอยากให้เราพัฒนาสินค้าหรือบริการส่วนไหน">คุณอยากให้เราพัฒนาสินค้าหรือบริการส่วนไหน
+                </option>
+                <option value="คุณคิดว่าอะไรคือจุดเด่นของสินค้าหรือบริการของเรา">
+                  คุณคิดว่าอะไรคือจุดเด่นของสินค้าหรือบริการของเรา</option>
+                <option value="คุณได้รับประโยชน์อะไรจากใช้สินค้าของเรา">คุณได้รับประโยชน์อะไรจากใช้สินค้าของเรา</option>
+
+              </select>
+              <p></p>
+            </div>
+
+            <div class="col-12">
+              <label for="question1">
+                
+                {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    คำถามที่มีคำตอบเป็นตัวเลข
+                    {% else %}
+                    Questions with numeric answers
+                    {% endif %}
+                    {% endfor %}
+
+              </label>
+              <br>
+              <select class="form-select form-control" id="question_number" name="question_number" required>
+                <option>เลือกคำถาม</option>
+                <option value="คุณคิดว่าราคาเท่าไหร่จึงเหมาะสมกับสินค้าหรือบริการนี้">
+                  คุณคิดว่าราคาเท่าไหร่จึงเหมาะสมกับสินค้าหรือบริการนี้</option>
+                <option value="คุณคิดว่าคุณยอมจ่ายเงินกี่บาทสำหรับสินค้าหรือบริการชุดนี้">
+                  คุณคิดว่าคุณยอมจ่ายเงินกี่บาทสำหรับสินค้าหรือบริการชุดนี้</option>
+                <option value=""></option>
+              </select>
+              <p></p>
+            </div>
+          </div>
+          <br>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">
+            {% for link_l in link3 %}
+            {% if link_l.language_name == "TH" %}
+            ลงทะเบียนสินค้าและบริการ
+            {% else %}
+            Register for products and services
+            {% endif %}
+            {% endfor %} </button>
+          <br>
+          <br><br>
+      </div>
+
+    </form>
+
+  </main>
+  <br>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

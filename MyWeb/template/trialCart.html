@@ -1,0 +1,125 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+
+
+<div class="container" style="margin-top: 20px;margin-bottom: 20px;">
+
+   {% for trial in trialshow %}
+   <br>
+   <div class="col">
+      <div class="card" style="height: auto;">
+         <div class="row g-0">
+            <div class="col-md-4">
+               <img class="img-fluid rounded-start" src="{{  trial.product.product_and_service_image.url }}"
+                  style="width: auto; display: block;margin-top: auto;margin-left: auto;margin-bottom: auto;margin-right: auto;object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+               <div class="card-body">
+                  <h5 class="card-title">{{trial.product.product_and_service_name}}</h5>
+                  <p class="text-muted">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     รหัสทดลองที่ T
+                     {% else %}
+                     Trial code at T
+                     {% endif %}
+                     {% endfor%}
+                     {{trial.trial_id}}C{{trial.consumer.consumer_id}}E{{trial.enturpreneur.enturpreneur_id}}
+                  </p>
+                  <p class="card-text">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     รายละเอียด:
+                     {% else %}
+                     Details:
+                     {% endif %}
+                     {% endfor %} {{trial.product.product_and_service_deail | slice:":100"}} </p>
+                  <p class="card-text text-muted">
+                     
+                  
+                  
+                  </p>
+                  <p class="card-text text-muted">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     ที่อยู่:
+                     {% else %}
+                     Address:
+                     {% endif %}
+                     {% endfor %} {{trial.enturpreneur.enturpreneur_address}}
+                     {{product.enturpreneur.enturpreneur_province}} {{product.enturpreneur.enturpreneur_postal}} </p>
+                  <p class="card-text text-muted">{% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     หมายเลขโทรศัพท์:
+                     {% else %}
+                     Phone number:
+                     {% endif %}
+                     {% endfor %} {{trial.enturpreneur.enturpreneur_phone}} </p>
+
+                  {% if trial.trial_status == 1%}
+
+                  
+                  </a>
+                  <a href="{% url 'trial_witdraw' trial.trial_id %}"" class="btn btn-danger" style="height: 40px">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     ยกเลิก
+                     {% else %}
+                     Cancel
+                     {% endif %}
+                     {% endfor %}</a>
+                  {% elif trial.trial_status == 2 %}
+
+                  <a href="{% url 'review'  trial.product.product_and_service_id %}" class="btn btn-warning"
+                     style="height: 40px">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     รีวิว
+                     {% else %}
+                     Reviews
+                     {% endif %}
+                     {% endfor %}</a>
+
+                  {% elif trial.trial_status == 3 %}
+                  <a href="" class="btn btn-warning" style="height: 40px">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     รีวิวเรียบร้อยแล้ว
+                     {% else %}
+                     Review completed
+                     {% endif %}
+                     {% endfor %}
+                  </a>
+
+                  {% elif trial.trial_status == 4 %}
+                  <a href="{% url 'consumer_conf'  trial.product.product_and_service_id %}" class="btn btn-warning"
+                     style="height: 40px">
+                     {% for link_l in link3 %}
+                     {% if link_l.language_name == "TH" %}
+                     ยืนยันการรับสินค้า
+                     {% else %}
+                     Confirm receipt
+                     {% endif %}
+                     {% endfor %}</a>
+                  {% else %}
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+
+
+
+
+
+
+
+   {% endfor %}
+   <br>
+</div>
+{% endblock %}

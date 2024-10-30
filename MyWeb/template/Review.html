@@ -1,0 +1,151 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+
+
+<div class="container" style="margin-bottom: 20px;margin-top: 20px;">
+
+    {% for messager in messages %}
+
+    {% if messager.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+    <div class="alert alert-danger">
+        <strong>Warning!</strong> {{messager}}
+    </div>
+    {% else %}
+    <div class="alert alert-success">
+        <strong>Success!</strong> {{messager}}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+
+
+
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <script>
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        </script>
+
+        <center>
+            <h2>
+                {% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                แบบสอบถามความคิดเห็น
+                {% else %}
+                Opinion questionnaire
+                {% endif %}
+                {% endfor %}
+            </h2>
+        </center>
+        <br>
+        {% for question in questions %}
+        <div class="row g-3" style="margin-left: auto;margin-right: auto;">
+            <div class="col-2"></div>
+            <div class="col-8">
+
+                <h6 class="fw-bold">1. {{question.question_tf}}</h6>
+                <input type="radio" id="" name="answer_tf" value="1" style="margin-left: 20px;">
+                <label for="">
+                    {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    ใช่
+                    {% else %}
+                    Yes
+                    {% endif %}
+                    {% endfor %}
+                </label>
+                <input type="radio" id="" name="answer_tf" value="2">
+                <label for="">{% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    ไม่
+                    {% else %}
+                    No
+                    {% endif %}
+                    {% endfor %}</label>
+
+
+
+                <br>
+                <h6 class="fw-bold">2. {{question.question_single}}</h6>
+                <input type="radio" id="" name="answer_single" value="1" style="margin-left: 20px;">
+                <label for="">1</label>
+                <input type="radio" id="" name="answer_single" value="2">
+                <label for="">2</label>
+                <input type="radio" id="" name="answer_single" value="3">
+                <label for="">3</label>
+                <input type="radio" id="" name="answer_single" value="4">
+                <label for="">4</label>
+                <input type="radio" id="" name="answer_single" value="5">
+                <label for="">5</label>
+                <br>
+                <h6 class="fw-bold">3. {{question.question_text}}</h6>
+                <textarea name="answer_text" id="" cols="50" rows="1" class="form-control"
+                    style="margin-left: 20px;"></textarea>
+                <br>
+                <h6 class="fw-bold">4. {{question.question_multiple}}</h6>
+                <input type="checkbox" name="answer_multiple" id="" value="ราคา" style="margin-left: 20px;">
+                <label for="">{{question.question_multi_1}}</label><br>
+                <input type="checkbox" name="answer_multiple" id="" value="ความน่าเชื่อถือ" style="margin-left: 20px;">
+                <label for="">{{question.question_multi_2}}</label><br>
+                <input type="checkbox" name="answer_multiple" id="" value="นโยบายของสินค้า" style="margin-left: 20px;">
+                <label for="">{{question.question_multi_3}}</label><br>
+                <input type="checkbox" name="answer_multiple" id="" value="ระยะเวลาในการจัดส่ง"
+                    style="margin-left: 20px;">
+                <label for="">{{question.question_multi_4}}</label><br>
+
+                <div class="row">
+                    <div class="col-2"><input type="checkbox" name="answer_multiple" id="" value="อื่น ๆ"
+                            style="margin-left: 20px;"><label for="" style="margin-left: 5px;">{% for link_l in link3 %}
+                                {% if link_l.language_name == "TH" %}
+                                อื่น ๆ 
+                                {% else %}
+                                Other 
+                                {% endif %}
+                                {% endfor %} 
+                            </label></div>
+                    <div class="col-3"><input type="text" name="" id="" class="form-control"
+                            style="float: left;margin-left: -35px;"></div>
+                    <div class="col-8"></div>
+                </div>
+
+                <br>
+                <h6 class="fw-bold">5. {{question.question_number}}</h6>
+                <input type="text" name="answer_number" id="" class="form-control" style="margin-left: 20px;">
+                <br>
+                <h6 class="fw-bold">6. {% for link_l in link3 %}
+                    {% if link_l.language_name == "TH" %}
+                    ข้อเสนอแนะ
+                    {% else %}
+                    Feedback
+                    {% endif %}
+                    {% endfor %}
+                </h6>
+                <textarea name="answer_other" id="answer_other" cols="30" rows="1" class="form-control"
+                    style="margin-left: 20px;"></textarea>
+
+                <br>
+
+            </div>
+            <div class="col-2"></div>
+            <button class="w-50 btn btn-primary btn-lg" type="submit"
+                style="margin-left: auto;margin-right: auto;">{% for link_l in link3 %}
+                {% if link_l.language_name == "TH" %}
+                รีวิว
+                {% else %}
+                Review
+                {% endif %}
+                {% endfor %}
+            </button>
+            {% endfor %}
+    </form>
+
+
+</div>
+
+
+
+
+{% endblock %}

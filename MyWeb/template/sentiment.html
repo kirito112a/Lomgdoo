@@ -1,0 +1,444 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;1,300;1,600&family=Chonburi&family=Itim&family=Prompt:wght@500&family=Taviraj:ital,wght@0,400;1,900&display=swap" rel="stylesheet">
+
+
+<style>
+ 
+    .container-sentiment {
+        width: auto;
+        height: auto;
+        font-family: 'Chakra Petch', sans-serif;
+    }
+
+    .graph {
+        text-align: center;
+        height: 400px;
+        max-width: 350px;
+        float: left;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-family: 'Chakra Petch', sans-serif;
+    }
+
+  
+    #myDIV {
+        width: 350px;
+        height: 300px;
+        overflow: auto;
+        background-color: rgb(255, 255, 255);
+        font-family: 'Chakra Petch', sans-serif;
+        
+        
+    
+    }
+
+    #content {
+        height: auto;
+        width: 250px;
+        background-color: rgb(255, 255, 255)   
+    }
+
+    ul.cloud {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    line-height: 2.75rem;
+    width: 450px;
+    font-style: italic;
+    font-family: 'Chakra Petch', sans-serif;
+    }
+
+    ul.cloud a {
+    /*   
+    Not supported by any browser at the moment :(
+    --size: attr(data-weight number); 
+    */
+    --size: 1;
+    --color: #a33;
+    color: var(--color);
+    font-size: calc(var(--size) * 0.25rem + 0.5rem);
+    font-family: 'Tan';
+    display: block;
+    padding: 0.125rem 0.25rem;
+    position: relative;
+    text-decoration: none;
+    font-family: 'Itim', cursive
+    /* 
+    For different tones of a single color
+    opacity: calc((15 - (9 - var(--size))) / 15); 
+    */
+    }
+
+    ul.cloud a[data-weight="1"] { --size: 5; }
+    ul.cloud a[data-weight="2"] { --size: 3; }
+    ul.cloud a[data-weight="3"] { --size: 6; }
+    ul.cloud a[data-weight="4"] { --size: 2; }
+    ul.cloud a[data-weight="5"] { --size: 4; }
+    ul.cloud a[data-weight="6"] { --size: 2; }
+    ul.cloud a[data-weight="7"] { --size: 7; }
+    ul.cloud a[data-weight="8"] { --size: 1; }
+    ul.cloud a[data-weight="9"] { --size: 5; }
+
+    ul[data-show-value] a::after {
+    content: " (" attr(data-weight) ")";
+    font-size: 1rem;
+    font-family: 'Chonburi', cursive;
+    }
+
+    ul.cloud li:nth-child(2n+1) a { --color: #181; }
+    ul.cloud li:nth-child(3n+1) a { --color: #33a; }
+    ul.cloud li:nth-child(4n+1) a { --color: #c38; }
+
+    ul.cloud a:focus {
+    outline: 1px dashed;
+    }
+
+    ul.cloud a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 100%;
+    background: var(--color);
+    transform: translate(-50%, 0);
+    opacity: 0.15;
+    transition: width 0.25s;
+    font-family: 'Chonburi', cursive;
+    }
+
+    ul.cloud a:focus::before,
+    ul.cloud a:hover::before {
+    width: 100%;
+    }
+
+    @media (prefers-reduced-motion) {
+    ul.cloud * {
+        transition: none !important;
+    }
+    }
+
+
+
+
+     
+</style>
+<br>
+<h1 style="text-align: center;">
+    {% for link_l in link3 %}
+    {% if link_l.language_name == "TH" %}
+    ข้อมูลสถิติ
+    {% else %}
+    Statistical data
+    {% endif %}
+    {% endfor %}</h1>
+<br>
+
+<div class="container-sentiment">
+    <div class="graph" >
+        <h4 style="text-align: center;"> {% for a in question %}  {{a.question_tf}}  {% endfor%} </h4>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+        <script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
+        <canvas id="myChart1" height="350"></canvas>
+        <script>
+            const ctx1 = document.getElementById('myChart1').getContext('2d');
+            const myChart1 = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ['ไม่', 'ใช่'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [{{ answer_tf0 }}, {{ answer_tf1 }}   ],
+            backgroundColor: [
+                'rgba(136,86,167,0.4)',
+                'rgba(173,221,142, 0.4)',
+                'rgba(254,178,76,0.4)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ], 
+            
+                borderColor: [
+                    'rgba(136,86,167,1)',
+                    'rgba(173,221,142, 1)',
+                    'rgba(254,178,76,1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                    borderWidth: 2
+          }]
+      },
+            options: {
+                responsive: true,
+                    scales: {
+
+                }
+            }
+            
+  });
+
+        </script>
+
+
+    </div>
+
+    <div class="graph" >
+        <h4 style="text-align: center;">ผู้แสดงความคิดเห็นแยกตามเพศ</h4>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+        <script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
+        <canvas id="myChart" height="350"></canvas>
+        <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ชาย', 'หญิง', 'อื่นๆ'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [{{ consumer_m }}, {{ consumer_f }},{{ consumer_o }}   ],
+            backgroundColor: [
+                'rgba(65,182,196,0.4)',
+                'rgba(255, 99, 132, 0.4)',
+                'rgba(254,178,76,0.4)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ], 
+            
+                borderColor: [
+                    'rgba(65,182,196,1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(254,178,76,1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                    borderWidth: 2
+          }]
+      },
+            options: {
+                responsive: true,
+                    scales: {
+
+                }
+            }
+            
+  });
+
+        </script>
+
+
+    </div>
+
+    <!--แยกไฟล์--->
+
+    <div class="graph" >
+        <h4 style="text-align: center;"> ความรู้สึกต่อสินค้าและบริการ </h4>
+        <canvas id="mySentiment" height="350"></canvas>
+        <script>
+            const ctx2 = document.getElementById('mySentiment').getContext('2d');
+            const mySentiment = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Positive', 'Negative'],
+                    datasets: [{
+                        label: "of Vote",
+                        data: [{{ answer_pos }}, {{ answer_neg }} ],
+                backgroundColor: [
+                    'rgba(254,196,79, 0.5)',
+                    'rgba(106,81,163, 0.5)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(254,196,79, 1)',
+                'rgba(106,81,163, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+    },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+
+            
+});
+
+
+        </script>
+
+    </div>
+
+    <!--แยกไฟล์--->
+
+    <div class="graph" >
+        <h4 style="text-align: center;">{% for a in question %}  {{a.question_single}}  {% endfor%}</h4>
+        <canvas id="status" height="300"></canvas>
+        <script>
+
+
+            const ctx3 = document.getElementById('status').getContext('2d');
+            const status = new Chart(ctx3, {
+                type: 'polarArea',
+                data: {
+                    labels: [  'น้อยมาก' , 'ค่อนข้างน้อย' , 'ปานกลาง' , 'สูง' , 'สูงมาก'  ],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [{{answer_single1}}, {{answer_single2}},{{answer_single3}},{{answer_single4}},{{answer_single5}}, ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+
+        },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+            
+                }
+            }
+ }
+);
+
+        </script>
+        
+    </div>
+
+    <!--แยกไฟล์--->
+  
+    <div class="graph" >
+        <h4 style="text-align: center;">{% for a in question %}  {{a.question_number}}  {% endfor%} </h4>
+        <canvas id="g4" height="300"></canvas>
+        <script>
+
+
+            const ctx4 = document.getElementById('g4').getContext('2d');
+            const g4 = new Chart(ctx4, {
+                type: 'bubble',
+                data: {
+                    labels: [  {% for a in answer1 %}  {{a}},  {% endfor%},  ],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [   {% for a in answer1 %}  {{a.answer_number}}, {% endfor %} ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+
+        },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+            
+                }
+            }
+ }
+);
+
+        </script>
+
+    </div>
+
+    <!--แยกไฟล์--->
+    <div class="graph">
+    <h4 style="text-align: center;">{% for a in question %}  {{a.question_text}}  {% endfor%} </h4>
+    <div id="myDIV" onscroll="myFunction()" class="form-control">
+        <div id="content"  >
+            <ul class="cloud" role="navigation" aria-label="Webdev word cloud" >
+                {% for a in answer1 %}
+                <li><a  data-weight="{{a}}" >  
+                    {{a.answer_text}}, </a></li>{% endfor %}
+              </ul>
+        
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        function myFunction() {
+            var elmnt = document.getElementById("myDIV");
+            var x = elmnt.scrollLeft;
+            var y = elmnt.scrollTop;
+        }
+    </script>
+
+</div>
+<div class="clearfix"></div><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layouts.html' %}
+{% block content%}
+{% load crispy_forms_tags %}
+<div class="container" style="margin-top: 100px;">
+     <br><br>
+     <h2 align="center">ลงชื่อเข้าใช้ระบบ</h2>
+     <form method="post" style="text-align: center;width: auto;margin-top: 60px;height: 300px;">
+          <p></p>
+          
+
+
+          {% csrf_token %}
+          {{form | crispy}}
+          <p></p>
+          <input type="submit" value="Login" class="btn btn-primary" style="margin-left: auto;margin-right: auto;width: 200px;height: 40px;">
+     </form>
+     <br>
+</div>
+
+{% endblock %}
