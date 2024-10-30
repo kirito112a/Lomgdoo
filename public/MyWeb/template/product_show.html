@@ -1,0 +1,28 @@
+{% extends 'layouts.html' %}
+
+{% block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+        <div class="card mt-4">
+            <img class="card-img-top img-fluid" src="{{product.image.url}}" alt="">
+            <div class="card-body">
+              
+              <h3 class="card-title">{{product.product_and_service_name}}</h3>
+              <h5>จำนวนที่เหลือ: {{product.product_and_service_amount}}  </h5>
+              <p class="card-text">รายละเอียด: {{product.product_and_service_deail}}</p>
+              {% if product.product_and_service_amount <= 0 %}
+                    <h5 class="text-danger">สินค้าหมด</h5>
+            {% else %}
+                <a href="consumer_tial.html" class="btn btn-primary">ลงทะเบียนทดลองสินค้า</a>
+            {% endif %}
+            
+            </div>
+          </div>
+  </div>
+    </div>
+</div>
+
+{% endblock %}

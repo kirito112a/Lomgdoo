@@ -1,0 +1,257 @@
+<nav class="navbar navbar-expand-md navbar-light bg-primary">
+  <a href="/" class="navbar-brand"><i class="fas fa-shipping-fast text-warning fa-2x"><img
+        src="https://sv1.picz.in.th/images/2021/10/17/uwIhgt.png" alt="" srcset="" width="100px" height="auto"></i></a>
+  <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav" name="button"><span
+      class="navbar-toggler-icon"></span></button>
+
+
+
+  {% if request.user.is_authenticated %}
+  <!----  คนที่เข้าสู่ระบบ      -->
+
+
+  {% if request.user.is_staff %}
+  <!----   ถ้าเป็นผู้ประกอบการ      -->
+
+  <div class="collapse navbar-collapse justify-content-between" id="nav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'rp' %}">
+          ลงทะเบียนสินค้าและบริการ
+        </a>
+      </li>
+      <li class="nav-item"><a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'trial_en_show' %}">
+          รายการสินค้าและบริการ
+        </a></li>
+      <li class="nav-item"><a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'reques_trial' %}">
+          คำขอทดลอง
+        </a></li>
+    </ul>
+
+    <form class="form-inline ml-3" action="{% url 'search' %}" , method="GET">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown ">
+          <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+            data-toggle="dropdown">
+            Change Language</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href=""><img src="https://cdn-icons-png.flaticon.com/512/197/197452.png" alt=""
+                  width="15px">Thai</a></li>
+            <li><a class="dropdown-item" href=""><img src="https://cdn-icons-png.flaticon.com/512/197/197374.png" alt=""
+                  width="15px">Eng</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="input-group">
+        <input type="text" name="title" class="form-control" placeholder="Search">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-warning"><i class="fas fa-search "><svg
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search "
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg></i></button>
+        </div>
+      </div>
+
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle " data-toggle="dropdown"
+            aria-expanded="false">
+            {{ request.user.first_name }} {{ request.user.last_name }}<i class="fas fa-user circle"></i>
+          </a>
+          <ul class=" dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="">สินค้า</a></li>
+            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                <path fill-rule="evenodd"
+                  d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+              </svg> Logout</a></li>
+          </ul>
+        </li>
+
+        <!----  ถ้าเป็นผู้บริโภค       -->
+        {% else %}
+
+        <div class="collapse navbar-collapse justify-content-between" id="nav">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown"><a
+                class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                data-toggle="dropdown">category</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'home' %}">หมวดหมู่ทั้งหมด</a>
+                {% for category in links%}
+                <a class="dropdown-item" href="{{category.get_url}}">{{category.cetegory_name}}</a>
+                {% endfor %}
+              </div>
+            </li>
+
+            <li class="nav-item dropdown"><a
+                class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                data-toggle="dropdown">type</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'home' %}">สินค้าและบริการทั้งหมด</a>
+                {% for type in links2%}
+                <a class="dropdown-item" href="{{type.get_url2}}">{{type.type_name}}</a>
+                {% endfor %}
+              </div>
+            </li>
+            <a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'trial_show' %}">
+              Trial<i class="fas fa-sign-out-alt"></i>
+            </a>
+          </ul>
+
+          <form class="form-inline ml-3" action="{% url 'search' %}" , method="GET">
+
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                  data-toggle="dropdown">
+                  Change Language</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href=""><img src="https://cdn-icons-png.flaticon.com/512/197/197452.png"
+                      alt="" width="15px">Thai</a>
+                  <a class="dropdown-item" href=""><img src="https://cdn-icons-png.flaticon.com/512/197/197374.png"
+                      alt="" width="15px">Eng</a>
+                </div>
+              </li>
+            </ul>
+
+            <div class="input-group">
+              <input type="text" name="title" class="form-control" placeholder="Search">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-warning"><i class="fas fa-search "><svg
+                      xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-search " viewBox="0 0 16 16">
+                      <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></i></button>
+              </div>
+            </div>
+
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle"
+                  data-toggle="dropdown">
+                  {{ request.user.first_name }} {{ request.user.last_name }}
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd"
+                        d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                      <path fill-rule="evenodd"
+                        d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                    </svg> Logout</a>
+                </div>
+              </li>
+
+              {% endif %}
+
+              <!----  ยังไม่ได้เข้าสู่ระบบ   -->
+
+
+
+              {% else %}
+
+              <!----  ไม่ได้เข้าสู่ระบบ    -->
+
+
+
+              <div class="collapse navbar-collapse justify-content-between" id="nav">
+                <ul class="navbar-nav">
+                  <li class="nav-item dropdown"><a
+                      class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                      data-toggle="dropdown">category</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{% url 'home' %}">หมวดหมู่ทั้งหมด</a>
+                      {% for category in links %}
+                      <a class="dropdown-item" href="{{category.get_url}}">{{category.cetegory_name}}</a>
+                      {% endfor %}
+                    </div>
+                  </li>
+
+                  <li class="nav-item dropdown"><a
+                      class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                      data-toggle="dropdown">type</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{% url 'home' %}">สินค้าและบริการทั้งหมด</a>
+                      {% for type in links2%}
+                      <a class="dropdown-item" href="{{type.get_url2}}">{{type.type_name}}</a>
+                      {% endfor %}
+                    </div>
+                  </li>
+
+                </ul>
+
+                <form class="form-inline ml-3" action="{% url 'search' %}" , method="GET">
+
+                  <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                        data-toggle="dropdown">
+                        Change Language</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href=""><img
+                            src="https://cdn-icons-png.flaticon.com/512/197/197452.png" alt="" width="15px">Thai</a>
+                        <a class="dropdown-item" href=""><img
+                            src="https://cdn-icons-png.flaticon.com/512/197/197374.png" alt="" width="15px">Eng</a>
+                      </div>
+                    </li>
+                  </ul>
+
+                  <div class="input-group">
+                    <input type="text" name="title" class="form-control" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-warning"><i class="fas fa-search "><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search " viewBox="0 0 16 16">
+                            <path
+                              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                          </svg></i></button>
+                    </div>
+                  </div>
+
+                  <ul class="navbar-nav">
+
+                    <ul class="navbar-nav">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href=""
+                          data-toggle="dropdown">
+                          Register</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href=" {% url 'signupConsumer' %} "><img src="" alt=""
+                              width="15px">Consumer</a>
+                          <a class="dropdown-item" href=" {% url 'signupEnturpreneur' %} "><img src="" alt=""
+                              width="15px">Enturprenure</a>
+                        </div>
+                      </li>
+                    </ul>
+
+                    <li class="nav-item">
+                      <a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'login' %}">
+                        Login <i class=" fas fa-sign-in-alt"></i>
+                      </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                      <a class="nav-link text-light text-uppercase font-weight-bold px-3">
+                        <i class="fas fa-shopping-cart"></i>
+                        {% if item_count > 0 %}
+                        {{item_count}}
+                        {% else %}
+
+                        {% endif %}
+                      </a>
+                    </li>
+                  </ul>
+
+                </form>
+              </div>
+</nav>
+</ul>

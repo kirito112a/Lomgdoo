@@ -1,0 +1,123 @@
+{% extends 'layouts.html' %}
+
+{% block content%}
+
+<div class="container">
+
+
+
+  <main>
+    <form method="POST" action="/rp">
+      {% csrf_token %}
+      <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      </script>
+
+      <div class="row g-5">
+      </div>
+
+      <div class="col-md-7 col-lg-8">
+        <br><br><br>
+        <h4 class="mb-3">ลงทะเบียนสินค้าและบริการ</h4>
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+
+            <div class="col-12">
+              <label for="product_and_service_name" class="form-label">ชื่อสินค้าและบริการ <span
+                  class="text-muted"></span></label>
+              <input type="text" class="form-control" id="product_and_service_name" name="product_and_service_name"
+                placeholder="">
+              <div class="invalid-feedback">
+
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="product_and_service_deail" class="form-label">รายละเอียดสินค้าและบริการ <span
+                  class="text-muted"></span></label>
+
+              <textarea type="text" class="form-control" id="product_and_service_deail" name="product_and_service_deail"
+                placeholder="" cols="30" rows="3"> </textarea>
+
+            </div>
+
+            <div class="invalid-feedback">
+
+            </div>
+
+            <div class="col-12">
+              <label for="product_and_service_amount" class="form-label">จำนวนสินค้าและบริการ <span
+                  class="text-muted"></span></label>
+
+              <input type="number" class="form-control" name="product_and_service_amount"
+                id="product_and_service_amount" placeholder="Enter Your Product Amount">
+
+            </div>
+
+            <div class="invalid-feedback">
+
+            </div>
+
+
+            <div class="col-12">
+              <label for="product_and_service_image" class="form-label">รูปภาพ <span class="text-muted"></span></label>
+              <br>
+              <input type="file" name="product_and_service_image" id="product_and_service_image" placeholder="">
+
+            </div>
+
+            <div class="invalid-feedback">
+
+            </div>
+
+
+
+            <div class="col-md-4">
+              <label for="cetegory" class="form-label">หมวดหมู่</label>
+              <br>
+              <select class="form-select" id="cetegory" name="cetegory" required>
+                {% for category in links%}
+                <option> {{category.cetegory_name}}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="type_name" class="form-label">ประเภท</label>
+              <br>
+              <select class="form-select" id="type_name" name="type_name" required>
+                {% for type in links2%}
+                <option> {{type.type_name}}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback">
+              </div>
+            </div>
+
+          </div>
+      </div>
+      <br>
+      <button class="w-100 btn btn-primary btn-lg" type="submit">ลงทะเบียนสินค้าและบริการ</button>
+      <br>
+    </form>
+  </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

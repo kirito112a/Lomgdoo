@@ -1,0 +1,1 @@
+from thai_sentiment import get_sentiment

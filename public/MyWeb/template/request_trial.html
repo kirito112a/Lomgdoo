@@ -1,0 +1,40 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+
+
+<div class="container">
+
+   
+   {% for product_and_service in product  %}
+   {% for trial in trial_show %}
+
+   <li> รหัสทดลองสินค้าที่ {{trial.trial_id}} {{trial_show.product_and_service.product_and_service_name}} </li>
+   <div class="card">
+      <div class="row g-0">
+         <div class="col-md-4">
+            <img src="..." class="img-fluid rounded-start" alt="...">
+         </div>
+         <div class="col-md-8">
+            <div class="card-body">
+               <h5 class="card-title"> {{product_and_service.product_and_service_name}}</h5>
+               <p class="card-text text-muted">{{product_and_service.product_and_service_deail}}</p>
+               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+               <a href="{{product_and_service.get_url}}" class="btn btn-primary" style="width: 70px">/</a>
+               <a href="#" class="btn btn-warning" style="width: 70px">x</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {% endfor %}
+
+   {% endfor %}
+
+
+
+
+
+
+</div>
+{% endblock %}

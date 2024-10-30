@@ -1,0 +1,258 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+
+<div class="container">
+  <main>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      </script>
+
+      <div class="row g-5">
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <br><br><br>
+        <h4 class="mb-3">ลงทะเบียนสมาชิกผู้ประกอบการ</h4>
+        <br>
+        <form class="needs-validation" novalidate>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="bissiness_name" class="form-label">ชื่อธุรกิจ</label>
+              <input type="text" class="form-control" id="bissiness_name" name="bissiness_name" placeholder="ชื่อธุรกิจ"
+                value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="enturpreneur_fname" class="form-label">ชื่อ</label>
+              <input type="text" class="form-control" id="enturpreneur_fname" name="enturpreneur_fname"
+                placeholder="ชื่อ" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="enturpreneur_lname" class="form-label">นามสกุล</label>
+              <input type="text" class="form-control" id="enturpreneur_lname" name="enturpreneur_lname"
+                placeholder="นามสกุล" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+            <br>
+
+            <div class="col-12">
+              <label for="enturpreneur_email" class="form-label">อีเมล<span class="text-muted"></span></label>
+              <input type="email" class="form-control" id="enturpreneur_email" name="enturpreneur_email"
+                placeholder="you@example.com">
+              <div class="invalid-feedback">
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="enturpreneur_password" class="form-label">รหัสผ่าน</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">รหัสผ่าน</span>
+                <input type="password" class="form-control" id="enturpreneur_password" name="enturpreneur_password"
+                  placeholder="รหัสผ่าน" required>
+                <div class="invalid-feedback">
+                  Your password is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="enturpreneur_repassword" class="form-label">ยืนยันรหัสผ่าน</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">ยืนยันรหัสผ่าน</span>
+                <input type="password" class="form-control" id="enturpreneur_repassword" name="enturpreneur_repassword"
+                  placeholder="ยืนยันรหัสผ่าน" required>
+                <div class="invalid-feedback">
+                  Your confirm password is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="enturpreneur_idcard" class="form-label">เลขบัตรประชาชน</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">เลขบัตรประชาชน</span>
+                <input type="text" class="form-control" id="enturpreneur_idcard" name="enturpreneur_idcard"
+                  placeholder="เลขบัตรประชาชน" required>
+                <div class="invalid-feedback">
+                  Valid Id card is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="juristic_code" class="form-label">เลขนิติบุคคล</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">เลขนิติบุคคล</span>
+                <input type="text" class="form-control" id="juristic_code" name="juristic_code"
+                  placeholder="เลขนิติบุคคล" required>
+                <div class="invalid-feedback">
+                  Valid Juristic Code is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="juristic_document" class="form-label">เอกสารนิติบุคคล</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">เอกสารนิติบุคคล</span><input class="form-control" type="file" id="juristic_document"
+                  name="juristic_document" placeholder="เอกสารนิติบุคคล">
+                <div class="invalid-feedback">
+                  Valid Id card is required.
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="enturpreneur_gender" class="form-label">เพศ</label>
+              <select class="form-select form-control" id="enturpreneur_gender" name="enturpreneur_gender" required>
+                <option selected>เลือก</option>
+                <option value="ชาย">ชาย</option>
+                <option value="หญิง">หญิง</option>
+                <option value="อื่น ๆ">อื่น ๆ</option>
+              </select>
+              <div class="invalid-feedback">
+
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="enturpreneur_dob" class="form-label">วัน/เดือน/ปีเกิด</label>
+              <input type="date" id="enturpreneur_dob" name="enturpreneur_dob" class="form-control" required>
+              </select>
+              <div class="invalid-feedback">
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <label for="enturpreneur_address" class="form-label">ที่อยู่</label>
+              <textarea name="enturpreneur_address" class="form-control" id="" cols="30" rows="1"
+                placeholder="ที่อยู่"></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label for="enturpreneur_province" class="form-label">จังหวัด</label>
+              <br>
+              <select class="form-select form-control" id="enturpreneur_province" name="enturpreneur_province" required>
+                <option selected>เลือกจังหวัด</option>
+                <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                <option value="กระบี่">กระบี่</option>
+                <option value="กาญจนบุรี">กาญจนบุรี</option>
+                <option value="กาฬสินธุ์">กาฬสินธุ์</option>
+                <option value="กำแพงเพชร">กำแพงเพชร</option>
+                <option value="ขอนแก่น">ขอนแก่น</option>
+                <option value="จันทบุรี">จันทบุรี</option>
+                <option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+                <option value="ชลบุรี">ชลบุรี</option>
+                <option value="ชัยนาท">ชัยนาท</option>
+                <option value="ชัยภูมิ">ชัยภูมิ</option>
+                <option value="ชุมพร">ชุมพร</option>
+                <option value="เชียงราย">เชียงราย</option>
+                <option value="เชียงใหม่">เชียงใหม่</option>
+                <option value="ตรัง">ตรัง</option>
+                <option value="ตราด">ตราด</option>
+                <option value="ตาก">ตาก</option>
+                <option value="นครนายก">นครนายก</option>
+                <option value="นครปฐม">นครปฐม</option>
+                <option value="นครพนม">นครพนม</option>
+                <option value="นครราชสีมา">นครราชสีมา</option>
+                <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+                <option value="นครสวรรค์">นครสวรรค์</option>
+                <option value="นนทบุรี">นนทบุรี</option>
+                <option value="นราธิวาส">นราธิวาส</option>
+                <option value="น่าน">น่าน</option>
+                <option value="บึงกาฬ">บึงกาฬ</option>
+                <option value="บุรีรัมย์">บุรีรัมย์</option>
+                <option value="ปทุมธานี">ปทุมธานี</option>
+                <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+                <option value="ปราจีนบุรี">ปราจีนบุรี</option>
+                <option value="ปัตตานี">ปัตตานี</option>
+                <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+                <option value="พังงา">พังงา</option>
+                <option value="พัทลุง">พัทลุง</option>
+                <option value="พิจิตร">พิจิตร</option>
+                <option value="พิษณุโลก">พิษณุโลก</option>
+                <option value="เพชรบุรี">เพชรบุรี</option>
+                <option value="เพชรบูรณ์">เพชรบูรณ์</option>
+                <option value="แพร่">แพร่</option>
+                <option value="พะเยา">พะเยา</option>
+                <option value="ภูเก็ต">ภูเก็ต</option>
+                <option value="มหาสารคาม">มหาสารคาม</option>
+                <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+                <option value="มุกดาหาร">มุกดาหาร</option>
+                <option value="ยะลา">ยะลา</option>
+                <option value="ยโสธร">ยโสธร</option>
+                <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+                <option value="ระนอง">ระนอง</option>
+                <option value="ระยอง">ระยอง</option>
+                <option value="ราชบุรี">ราชบุรี</option>
+                <option value="ลพบุรี">ลพบุรี</option>
+                <option value="ลำปาง">ลำปาง</option>
+                <option value="ลำพูน">ลำพูน</option>
+                <option value="เลย">เลย</option>
+                <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+                <option value="สกลนคร">สกลนคร</option>
+                <option value="สงขลา">สงขลา</option>
+                <option value="สตูล">สตูล</option>
+                <option value="สมุทรปราการ">สมุทรปราการ</option>
+                <option value="สมุทรสงคราม">สมุทรสงคราม</option>
+                <option value="สมุทรสาคร">สมุทรสาคร</option>
+                <option value="สระแก้ว">สระแก้ว</option>
+                <option value="สระบุรี">สระบุรี</option>
+                <option value="สิงห์บุรี">สิงห์บุรี</option>
+                <option value="สุโขทัย">สุโขทัย</option>
+                <option value="สุพรรณบุรี">สุพรรณบุรี</option>
+                <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+                <option value="สุรินทร์">สุรินทร์</option>
+                <option value="หนองคาย">หนองคาย</option>
+                <option value="หนองบัวลำภู">หนองบัวลำภู</option>
+                <option value="อ่างทอง">อ่างทอง</option>
+                <option value="อุดรธานี">อุดรธานี</option>
+                <option value="อุทัยธานี">อุทัยธานี</option>
+                <option value="อุตรดิตถ์">อุตรดิตถ์</option>
+                <option value="อุบลราชธานี">อุบลราชธานี</option>
+                <option value="อำนาจเจริญ">อำนาจเจริญ</option>
+              </select>
+              <div class="invalid-feedback">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="enturpreneur_postal" class="form-label">รหัสไปรษณีย์</label>
+              <input type="text" class="form-control" id="enturpreneur_postal" name="enturpreneur_postal"
+                placeholder="รหัสไปรษณีย์" required>
+            </div>
+
+            <div class="col-md-12">
+              <label for="enturpreneur_phone" class="form-label">หมายเลขโทรศัพท์</label>
+              <input type="text" class="form-control" id="enturpreneur_phone" name="enturpreneur_phone"
+                placeholder="หมายเลขโทรศัพท์" required>
+              <br>
+            </div>
+
+
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-sm" type="submit">ลงทะเบียนสมัครสมาชิก</button><br>
+
+
+        </form>
+      </div>
+    </form>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+  integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+{% endblock %}

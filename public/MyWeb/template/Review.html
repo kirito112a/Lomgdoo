@@ -1,0 +1,87 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+
+
+<div class="container">
+    <form method="POST" action="/review" >
+    {% csrf_token %}
+    <script>
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        </script>
+
+
+<body>
+    <center>
+
+        <h2>แบบสอบถามความคิดเห็น</h2>
+    </center>
+    <div class="row align-items-start">
+        <div class="col-4"></div>
+        <div class="col-5"><h6 class="fw-bold">1. ความน่าสนใจของสินค้าหรือบริการชุดนี้</h6>
+            <input type="radio" id="1" name="question_1" value="1">
+            <label for="">1</label>
+            <input type="radio" id="2" name="question_1 value="2">
+            <label for="">2</label>
+            <input type="radio" id="3" name="question_1" value="3">
+            <label for="">3</label>
+            <input type="radio" id="4" name="question_1" value="4">
+            <label for="">4</label>
+            <input type="radio" id="5" name="question_1" value="5">
+            <label for="">5</label>
+            <h6 class="fw-bold">2. ส่วนใหญ่คุณซื้อสินค้าหรือบริการต่าง ๆ ผ่านช่องทางใด</h6>
+            <input type="radio" id="ช่องทางออนไลน์" name="question_2" value="ช่องทางออนไลน์">
+            <label for="">ช่องทางออนไลน์</label><br>
+            <input type="radio" id="โซเชียลมีเดีย" name="question_2" value="โซเชียลมีเดีย">
+            <label for="">โซเชียลมีเดีย</label><br>
+            <input type="radio" id="ผ่านหน้าร้าน" name="question_2" value="ผ่านหน้าร้าน">
+            <label for="">ผ่านหน้าร้าน</label><br>
+            <input type="radio" id="ตัวแทนจำหน่าย" name="question_2" value="ตัวแทนจำหน่าย">
+            <label for="">ตัวแทนจำหน่าย</label><br>
+            <input type="radio" name="2_questio" id="อื่น ๆ" value="อื่น ๆ">
+            <label for="">อื่น ๆ <input type="text" name="" id=""> </label>
+            <h6 class="fw-bold">3. คุณอยากให้เราพัฒนาสินค้าหรือบริการส่วนไหนบ้าง</h6>
+            <label for=""></label>
+            <textarea name="question_3" id="" cols="50" rows="1"></textarea>
+            <h6 class="fw-bold">4. ปัจจัยใดบ้างที่มีผลต่อการเลือกซื้อสินค้าของคุณ</h6>
+            <input type="checkbox" name="question_4" id="ราคา" value="ราคา">
+            <label for="">ราคา</label><br>
+            <input type="checkbox" name="question_4" id="ความน่าเชื่อถือ" value="ความน่าเชื่อถือ">
+            <label for="">ความน่าเชื่อถือ</label><br>
+            <input type="checkbox" name="question_4" id="นโยบายของสินค้า" value="นโยบายของสินค้า">
+            <label for="">นโยบายของสินค้า</label><br>
+            <input type="checkbox" name="question_4" id="ระยะเวลาในการจัดส่ง" value="ระยะเวลาในการจัดส่ง">
+            <label for="">ระยะเวลาในการจัดส่ง</label><br>
+            <input type="checkbox" name="question_4" id="ความสะดวกสบาย" value="ความสะดวกสบาย">
+            <label for="">ความสะดวกสบาย</label><br>
+            <input type="checkbox" name="question_3" id="อื่น ๆ" value="อื่น ๆ">
+            <label for="">อื่น ๆ <input type="text" name="" id=""> </label>
+            <h6 class="fw-bold">5. ระดับความพึงพอใจในตัวของสินค้าหรือบริการของเรา</h6>
+            <input type="radio" id="1" name="question_5" value="1">
+            <label for="">1</label>
+            <input type="radio" id="2" name="question_5" value="2">
+            <label for="">2</label>
+            <input type="radio" id="3" name="question_5" value="3">
+            <label for="">3</label>
+            <input type="radio" id="4" name="question_5" value="4">
+            <label for="">4</label>
+            <input type="radio" id="5" name="question_5" value="5">
+            <label for="">5</label>
+            <h6 class="fw-bold">6. คุณคิดว่าคุณยอมจ่ายเงินกี่บาทสำหรับสินค้าหรือบริการชุดนี้</h6>
+            <input type="text" name="question_6" id="">
+            <h6 class="fw-bold">7. ข้อเสนอแนะ</h6>
+            <textarea name="question_7" id="" cols="50" rows="1"></textarea></div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">รีวิว</button>
+        
+            <div class="col-3"></div>
+
+    </div>
+    </form>
+
+</body>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block content%}
+<style>
+  .card-img-top{
+    height: 300px; 
+}
+</style>
+
+<!----   ดึงสินค้ามาแสดง          -->
+<div class="container">
+  <form method="POST">
+  <div class="row my-3">
+    {% if request.user.is_authenticated %}
+    {% if request.user.is_staff %}
+    <!----      ผู้ประกอบการ       -->
+
+
+    {% for product_and_service in products %}
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <p></p>
+      <div class="card h-100">
+        <a href=""><img class="card-img-top" src="{{  product_and_service.product_and_service_image.url }}" alt="" ></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{product_and_service.get_url}}">{{product_and_service.product_and_service_name}}</a>
+          </h4>
+          <h5>{{product_and_service.type_name}}</h5>
+          <p class="card-text">{{product_and_service.product_and_service_deail | slice:":150"}}</p>
+        </div>
+        <div class="card-footer">
+          {% if product_and_service.product_and_service_amount <= 0 %} <h4 class="text-danger">สินค้าหมด</h4>
+            {% else %}
+            <a href="" class="btn btn-primary">ดูรายละเอียด</a>
+            <a href="{% url 'trial' product_and_service.product_and_service_id %}"></a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    
+
+
+
+
+
+
+
+    {% else %}
+    <!----      ผู้บริโภค       -->
+    {% for product_and_service in products %}
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href=""><img class="card-img-top" src="{{  product_and_service.product_and_service_image.url }}" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{product_and_service.get_url}}">{{product_and_service.product_and_service_name}}</a>
+          </h4>
+          <h5>{{product_and_service.type_name}}</h5>
+          <p class="card-text">{{product_and_service.product_and_service_deail | slice:":150"}}</p>
+        </div>
+        <div class="card-footer">
+          {% if product_and_service.product_and_service_amount <= 0 %} <h4 class="text-danger">สินค้าหมด</h4>
+            {% else %}
+            <a href="" class="btn btn-primary">ดูรายละเอียด</a>
+   
+            <a href="{% url 'trial' product_and_service.product_and_service_id %}" class="btn btn-primary">ลงทะเบียน</a>
+            
+            {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    {% else %}
+    <!----      คนปกติ       -->
+    {% for product_and_service in products %}
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href=""><img class="card-img-top" src="{{  product_and_service.product_and_service_image.url }}" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{product_and_service.get_url}}">{{product_and_service.product_and_service_name}}</a>
+          </h4>
+          <h5>{{product_and_service.type_name}}</h5>
+          <p class="card-text">{{product_and_service.product_and_service_deail | slice:":150"}}</p>
+        </div>
+        <div class="card-footer">
+          {% if product_and_service.product_and_service_amount <= 0 %} <h4 class="text-danger">สินค้าหมด</h4>
+            {% else %}
+            <a href="" class="btn btn-primary">ดูรายละเอียด</a>
+            <a href="{% url 'trial' product_and_service.product_and_service_id %}"></a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+
+
+  </div>
+</form>
+</div>
+
+
+{% endblock %}
